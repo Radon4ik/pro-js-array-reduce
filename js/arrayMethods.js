@@ -5,8 +5,18 @@
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function map(array, callback) {
+  const mapResult = [];
+  array.reduce((previous, current) => {
+      // console.log(1, previous);
+      // console.log(2, current);
+      previous.push(callback(current));
+      return previous;
 
+
+  }, mapResult);
+  return mapResult;
 }
+
 
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива
  вот документация https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
@@ -14,8 +24,19 @@ function map(array, callback) {
  Фишка задания сделать свою реализацию, чтобы понять, как он работает под капотом. Для перебора нужно делать через метод массива reduce
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
-function filter(array, callback) {
 
+function filter(array, callback) {
+  const filterResult = [];
+
+  array.reduce((prev, curr) => {
+      if (callback(curr)) {
+          prev.push(curr);
+      }
+      return prev;
+
+  }, filterResult);
+
+  return filterResult;
 }
 
 /* Функция принимает в себе первым аргументом массив, вторым функцию которая будет вызываться для каждого элемента массива
@@ -25,6 +46,17 @@ function filter(array, callback) {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function some(array, callback) {
+  const someResult = array.reduce((previous, current) => {
+      // console.log(previous);
+      if (!previous) {
+          // console.log(!previous);
+          return callback(current);
+      }
+      return previous;
+
+  }, false);
+
+  return someResult;
 
 }
 
@@ -35,8 +67,17 @@ function some(array, callback) {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function every(array, callback) {
+  const everyResult = array.reduce((previous, current) => {
+      if (previous) {
+          return callback(current);
 
+      }
+      return previous;
+
+  }, true)
+  return everyResult
 }
+
 
 // Эту часть не удаляем, она важна для проверки результата
 module.exports = {
