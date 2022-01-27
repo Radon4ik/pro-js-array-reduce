@@ -6,10 +6,10 @@
 */
 function map(array, callback) {
   const mapResult = [];
-  array.reduce((previous, current) => {
+  array.reduce((previous, current, index, array) => {
       // console.log(1, previous);
       // console.log(2, current);
-      previous.push(callback(current));
+      previous.push(callback(current, index, array));
       return previous;
 
 
@@ -28,8 +28,8 @@ function map(array, callback) {
 function filter(array, callback) {
   const filterResult = [];
 
-  array.reduce((prev, curr) => {
-      if (callback(curr)) {
+  array.reduce((prev, curr, index, array) => {
+      if (callback(curr, index, array)) {
           prev.push(curr);
       }
       return prev;
@@ -46,11 +46,11 @@ function filter(array, callback) {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function some(array, callback) {
-  const someResult = array.reduce((previous, current) => {
+  const someResult = array.reduce((previous, current, index, array) => {
       // console.log(previous);
       if (!previous) {
           // console.log(!previous);
-          return callback(current);
+          return callback(current, index, array);
       }
       return previous;
 
@@ -67,9 +67,9 @@ function some(array, callback) {
  Помните, что вы передаете функцию, которая ожидает 3 аргумента, текущий элемент, индекс и сам массив. Автоматическая проверка будет это учитывать.
 */
 function every(array, callback) {
-  const everyResult = array.reduce((previous, current) => {
+  const everyResult = array.reduce((previous, current, index, array) => {
       if (previous) {
-          return callback(current);
+          return callback(current, index, array);
 
       }
       return previous;
